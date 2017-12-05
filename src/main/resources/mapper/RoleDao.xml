@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mright.platform.dao.RoleDao">
+
+    <insert id="createRole" parameterType="com.mright.platform.entity.Role">
+        INSERT INTO
+          sys_roles
+          (role,description,available)
+        VALUES
+          (#{role},#{description},#{available});
+    </insert>
+
+    <delete id="deleteRole" parameterType="long">
+        DELETE FROM
+          sys_roles
+        WHERE
+          id = #{roleId}
+    </delete>
+
+    <insert id="createRolesPermissions">
+        INSERT INTO
+        sys_roles_permissions
+        (role_id,permission_id)
+        VALUES
+        <foreach collection="permissionIds" item="permissionId" index="index" separator=",">
+            (#{roleId},#{permissionId})
+        </foreach>
+    </insert>
+
+    <delete id="uncorrelationPermissions">
+        DELETE FROM
+        sys_roles_permissions
+        <where>
+            role_id = #{roleId}
+            AND
+            permission_id
+            IN (
+            <foreach collection="permissionIds" item="permissionId" index="index" separator=",">
+                #{permissionId}
+            </foreach>
+            )
+        </where>
+    </delete>
+
+</mapper>

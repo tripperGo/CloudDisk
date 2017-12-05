@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mright.platform.dao.UserDao">
+
+    <insert id="createUser">
+        INSERT INTO
+          sys_users
+          (username,password,salt,locked)
+        VALUES
+          (#{username},#{password},#{salt},#{locked})
+    </insert>
+
+    <select id="findOne" parameterType="long" resultType="com.mright.platform.entity.User">
+        SELECT
+        id,username,password,salt,locked
+        FROM
+        sys_users
+        WHERE
+        id = #{userId}
+    </select>
+
+    <update id="updateUser" parameterType="com.mright.platform.entity.User">
+        UPDATE
+        sys_users
+        <set>
+            <if test="username != null and username != ''">
+                username=#{username},
+            </if>
+            <if test="password != null and password != ''">
+                password=#{password},
+            </if>
+            <if test="salt != null and salt != ''">
+                salt=#{salt},
+            </if>
+            <if test="locked != null and locked != ''">
+                locked=#{locked},
+            </if>
+        </set>
+        WHERE
+        id=#{id}
+    </update>
+
+    <insert id="correlationRoles">
+        INSERT INTO
+        sys_users_roles
+        (user_id, role_id)
+        VALUES
+        <foreach collection="roleIds" item="roleId" index="index" separator=",">
+            (#{userId},#{roleId})
+        </foreach>
+    </insert>
+
+    <delete id="uncorrelationRoles">
+        DELETE FROM
+        sys_users_roles
+        <where>
+            user_id = #{userId}
+            AND
+            role_id
+            IN (
+            <foreach collection="roleIds" item="roleId" index="index" separator=",">
+                #{roleId}
+            </foreach>
+            )
+        </where>
+    </delete>
+
+    <select id="findByUsername" parameterType="string" resultType="com.mright.platform.entity.User">
+        SELECT
+        id,username,password,salt,locked
+        FROM
+        sys_users
+        WHERE
+        username = #{username}
+    </select>
+
+    <select id="findRoles" parameterType="string" resultType="string">
+        select role
+        from sys_roles
+        where id in(select
+                      role_id
+                    from sys_users_roles
+                    where user_id = (select
+                                       id
+                                     from sys_users
+                                     where username = #{username}))
+    </select>
+
+    <select id="findPermissions" parameterType="string" resultType="string">
+        SELECT permission FROM sys_permissions WHERE id IN
+            (SELECT permission_id FROM sys_roles_permissions WHERE role_id IN
+                (SELECT
+                    role_id
+                    FROM sys_users_roles
+                    WHERE user_id = (SELECT
+                           id
+                         FROM sys_users
+                         WHERE username = #{username})))
+    </select>
+
+</mapper>

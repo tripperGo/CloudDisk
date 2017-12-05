@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mright.platform.dao.PermissionDao">
+
+    <insert id="createPermission" parameterType="com.mright.platform.entity.Permission">
+        INSERT INTO
+          sys_permissions
+          (permission,description,available)
+        VALUES
+          (#{permission},#{description},#{available})
+    </insert>
+
+    <delete id="deletePermission" parameterType="long">
+        DELETE FROM
+          sys_permissions
+        WHERE
+          id = #{permissionId}
+    </delete>
+
+</mapper>
