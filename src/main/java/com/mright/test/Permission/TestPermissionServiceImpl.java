@@ -32,7 +32,7 @@ public class TestPermissionServiceImpl extends TestUtil {
         user.setPassword("123");
         user.setSalt("salt");
         user.setLocked(true);
-        user.setUsername("username");
+        user.setUsername("zhangsan");
         userService.createUser(user);
     }
 
