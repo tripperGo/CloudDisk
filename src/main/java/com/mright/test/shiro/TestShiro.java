@@ -12,12 +12,51 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.Factory;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 /**
  * @author zhaochuanzhen
  * @desc
  * @time 16:37 2017/12/9
  */
 public class TestShiro {
+
+    @Test
+    public void testAuthorizationRealm(){
+        Subject subject = this.login("shiro-realm", "zhangsan", "111111");
+        System.out.println(subject.isAuthenticated());
+        if(subject.hasRole("role1")){
+            System.out.println("该用户拥有role1的角色");
+        }
+        if(subject.hasAllRoles(Arrays.asList("role1","role2"))){
+            System.out.println("\"role1\",\"role2\"");
+        }
+        if(subject.isPermitted("user:create")){
+            System.out.println("该用户拥有user:create的权限");
+        }
+        if(subject.isPermittedAll("user:create","user:delete","items:add")){
+            System.out.println("user:create user:delete items:add");
+        }
+        subject.checkPermission("items:add:1");
+    }
+
+    @Test
+    public void testAuthorization(){
+        Subject subject = this.login("shiro-permission", "zhang", "123");
+        if(subject.hasRole("role1")){
+            System.out.println("该用户拥有role1的角色");
+        }
+        if(subject.hasAllRoles(Arrays.asList("role1","role2"))){
+            System.out.println("\"role1\",\"role2\"");
+        }
+        if(subject.isPermitted("user:create")){
+            System.out.println("该用户拥有user:create的权限");
+        }
+        if(subject.isPermittedAll("user:create","user:delete")){
+            System.out.println("user:create user:delete");
+        }
+        System.out.println(subject.isAuthenticated());
+    }
 
     @Test
     public void testRealmMd5(){
