@@ -5,10 +5,16 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Insert title here</title>
+    <script src="resource/common/js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
+<div class="username"></div>
 <script>
-    location.assign("login/main");
+    var username = '${username}';
+    alert(username);
 </script>
+<%--<script>
+    location.assign("login/main");
+</script>--%>
 </body>
 </html>

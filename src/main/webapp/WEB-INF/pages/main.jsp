@@ -112,7 +112,6 @@
     <script type="text/javascript" src="../../resource/plugin/webmodule/assets/js/demo/charts/chart_simple.js">
     </script>
 </head>
-
 <body>
 <header class="header navbar navbar-fixed-top" role="banner">
     <div class="container">
