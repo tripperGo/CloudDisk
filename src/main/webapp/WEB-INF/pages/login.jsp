@@ -3,12 +3,13 @@
 <head>
     <meta charset="utf-8"/>
     <title>用户登录</title>
-    <link rel="stylesheet" href="../../resource/common/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../../resource/css/login.css" />
+    <link rel="stylesheet" href="../../resource/common/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../resource/css/login.css"/>
+    <script src="../../resource/common/js/jquery-3.2.1.min.js"></script>
     <script src="../../resource/common/js/bootstrap.min.js"></script>
 </head>
 <body>
-<form action="login.php" method="post">
+<form id="loginform" name="loginform" action="../login/login" method="post">
     <div class="mycenter">
         <div class="mysign">
             <div class="col-lg-11 text-center text-info">
@@ -27,10 +28,11 @@
             </div>
             <div class="col-lg-10"></div>
             <div class="col-lg-10">
-                <button type="button" class="btn btn-success col-lg-12">登录</button>
+                <button type="button" class="btn btn-success col-lg-12 btn_submit">登录</button>
             </div>
         </div>
     </div>
 </form>
+<script src="../../resource/js/login.js"></script>
 </body>
 </html>
