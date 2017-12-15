@@ -6,15 +6,54 @@
     <script src="../../resource/common/js/vue.js"></script>
 </head>
 <body>
-<div id="app1"></div>
+<div id="app1">
+    <a :href="url">百度一下</a>
+    <a @click="aaa">点击一下</a>
+</div>
+<div id="app2">
+    <p>{{message}}</p>
+    <p>{{reversedMessage}}</p>
+</div>
+<div id="app3">
+    <p>{{message}}</p>
+    <p>{{data}}</p>
+</div>
 <script>
-    var a = {a:1};
-    var vm = new Vue({
-        el:'#app1',
-        data:a
+    var app3 = new Vue({
+        el:'#app3',
+        data:{
+            message:'afgdb'
+        },
+        computed:{
+            data:function(){
+                return new Date();
+            }
+        }
     })
-    vm.$watch('a',function(newValue, oldValue){
-        console.log("new:"+newValue+"||old:"+oldValue)
+    var app2 = new Vue({
+        el:'#app2',
+        data:{
+            message:'hello world'
+        },
+        computed:{
+            reversedMessage:function(){
+                return this.message.split('').reverse().join('')
+            }
+        }
+    })
+    var app1 = new Vue({
+        el: '#app1',
+        data: {
+            url: 'https://www.baidu.com',
+        },
+        methods: {
+            aaa:function () {
+                alert(2);
+            }
+        }
+    })
+    vm.$watch('a', function (newValue, oldValue) {
+        console.log("new:" + newValue + "||old:" + oldValue)
     })
 </script>
 </body>
