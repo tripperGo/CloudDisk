@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../resource/common/js/vue.js"></script>
+</head>
+<body>
+<div id="app1">
+    {{message}}
+</div>
+<div id="app2">
+    <span v-bind:title="message">hello world</span>
+</div>
+<div id="app3">
+    <span v-if="flag">
+        if选择器
+    </span>
+</div>
+<div id="app4">
+    <ol>
+        <li v-for="item in list">
+            {{item.message}}
+        </li>
+    </ol>
+</div>
+<div id="app5">
+    <p>{{message}}</p>
+    <input type="button" v-on:click="reverseMessage" value="逆转">
+</div>
+<div id="app6">
+    <p>{{message}}</p>
+    <input type="text" v-model="message">
+</div>
+<div id="app7">
+    <ol>
+        <custom-li
+                v-for="item in list"
+                v-bind:key="item.id"
+                v-bind:item="item">
+        </custom-li>
+    </ol>
+</div>
+<script>
+    Vue.component('custom-li', {
+        template: '<li>{{item.test}}</li>',
+        props: ['item']
+    })
+    var app7 = new Vue({
+        el: '#app7',
+        data: {
+            list: [
+                {id: 1, test: 'aaa'},
+                {id: 2, test: 'bbb'},
+                {id: 3, test: 'ccc'}
+            ]
+        }
+    })
+    var app6 = new Vue({
+        el: '#app6',
+        data: {
+            message: ""
+        }
+    })
+    var app5 = new Vue({
+        el: '#app5',
+        data: {
+            message: 'abcdefg'
+        },
+        methods: {
+            reverseMessage: function () {
+                this.message = this.message.split("").reverse().join("")
+            }
+        }
+    })
+    var app4 = new Vue({
+        el: '#app4',
+        data: {
+            list: [
+                {message: 'aaa'},
+                {message: 'bbb'},
+                {message: 'ccc'},
+            ]
+        }
+    })
+    var app3 = new Vue({
+        el: '#app3',
+        data: {
+            flag: true
+        }
+    })
+    var app2 = new Vue({
+        el: '#app2',
+        data: {
+            message: 'hhh'
+        }
+    })
+    var app1 = new Vue({
+        el: '#app1',
+        data: {
+            message: "你好  世界！~"
+        }
+    })
+</script>
+</body>
+</html>
