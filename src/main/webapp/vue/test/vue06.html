@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../resource/common/js/vue.js"></script>
+</head>
+<body>
+<div id="app1">
+    <h1 v-if="ok">yes</h1>
+    <h1 v-else>no</h1>
+    <template v-if="ok">
+        <h1>Title</h1>
+        <p>Paragraph 1</p>
+        <p>Paragraph 2</p>
+    </template>
+</div>
+<div id="app2">
+    <p v-if="ok=='a'">111</p>
+    <p v-else-if="ok=='b'">222</p>
+    <p v-else>not 111 222</p>
+</div>
+<div id="app3">
+    <template v-if="loginType === 'username'">
+        <label>Username</label>
+        <input placeholder="Enter your username" key="a">
+    </template>
+    <template v-else>
+        <label>Email</label>
+        <input placeholder="Enter your email address" key="b">
+    </template>
+    <button @click="change()">点击更换输入方式</button>
+    <p v-show="ok">adf</p>
+</div>
+<script>
+    var app3 = new Vue({
+        el: '#app3',
+        data: {
+            loginType: 'username',
+            ok:true
+        },
+        methods: {
+            change: function () {
+                if ("username" === this.loginType) {
+                    this.loginType = "email";
+                } else {
+                    this.loginType = "username";
+                }
+            }
+        }
+    })
+    var app2 = new Vue({
+        el: '#app2',
+        data: {
+            ok: 'a'
+        }
+    })
+    var app1 = new Vue({
+        el: '#app1',
+        data: {
+            ok: true
+        }
+    })
+</script>
+</body>
+</html>

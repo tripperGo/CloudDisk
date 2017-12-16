@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../resource/common/js/vue.js"></script>
+</head>
+<body>
+<div id="app1" :class="{ active: isActive}">aaa</div>
+<div id="app2" :style="classObject">adsf</div>
+<script>
+    var app2 = new Vue({
+        el:'#app2',
+        data:{
+            classObject:{
+                color:'red',
+                fontSize:'20px'
+            }
+        }
+    })
+    var app1 = new Vue({
+        el:'#app1',
+        data:{
+            isActive:true
+        }
+    })
+</script>
+</body>
+</html>

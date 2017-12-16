@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../resource/common/js/vue.js"></script>
+</head>
+<body>
+<div id="app1">
+    <p>{{message}}</p>
+    <p>"{{reverseMessage()}}"</p>
+    <p>{{now1}}</p>
+    <p>{{now2()}}</p>
+    <p>{{testWatch}}</p>
+    <p>{{fullname}}</p>
+</div>
+
+<script>
+    var app1 = new Vue({
+        el: '#app1',
+        data: {
+            message: 'dsga',
+            testWatch: 'watch',
+            firstname: 'Bob',
+            lastname: 'Bar',
+        },
+        methods: {
+            reverseMessage: function () {
+                return this.message.split('').reverse().join('');
+            },
+            now2: function () {
+                return Date.now()
+            }
+        },
+        computed: {
+            now1: function () {
+                return Date.now()
+            },
+            fullname: {
+                get: function () {
+                    return this.firstname + " " + this.lastname;
+                },
+                set: function (val) {
+                    var names = val.split(' ');
+                    this.firstname = names[0];
+                    this.lastname = names[names.length - 1];
+                }
+            }
+        },
+        watch: {
+            testWatch: function (val1, val2) {
+                console.log(val1 + "\r\n" + val2);
+            }
+        }
+    })
+</script>
+</body>
+</html>
