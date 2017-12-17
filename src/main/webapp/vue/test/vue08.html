@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../resource/common/js/vue.js"></script>
+</head>
+<body>
+<div id="app1">
+    <p>{{count}}</p>
+    <button @click="count += 1">点击加一</button>
+    <button @click="greet">点击出发方法</button>
+    <button @click="param('hi',$event)">点击传参</button>
+</div>
+<div id="app2">
+    <a @click.once="doThis">{{message}}</a>
+    <input @keyup.enter="submit">
+</div>
+<script>
+    var app2 = new Vue({
+        el:'#app2',
+        data:{
+            message:'点击阻止'
+        },
+        methods:{
+            doThis:function(){
+                console.log('dasf');
+            },
+            submit:function(){
+                console.log("enter");
+            }
+        }
+    })
+    var app1 = new Vue({
+        el:'#app1',
+        data:{
+            count:1
+        },
+        methods:{
+            greet:function(event){
+                console.log(this.count);
+                console.log(event.target);
+            },
+            param:function(param,event){
+                console.log(param);
+                console.log(event.target);
+            }
+        }
+    })
+</script>
+</body>
+</html>
